@@ -1,0 +1,42 @@
+{
+  "name": "tod-battleship",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch *.js",
+    "dev": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "deploy": "git add dist -f && git commit -S -m 'Deployment Commit' && git subtree push --prefix dist origin gh-pages",
+    "merge-update": "git checkout gh-pages && git merge main --no-edit",
+    "main": "git checkout main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephenstrange-blip/tod-battleship.git"
+  },
+  "keywords": [
+    "tod",
+    "battleship"
+  ],
+  "author": "Jade Isip",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stephenstrange-blip/tod-battleship/issues"
+  },
+  "homepage": "https://github.com/stephenstrange-blip/tod-battleship#readme",
+  "devDependencies": {
+    "@babel/core": "7.26.10",
+    "@babel/preset-env": "7.26.9",
+    "babel-jest": "29.7.0",
+    "css-loader": "7.1.2",
+    "html-loader": "5.1.0",
+    "html-webpack-plugin": "5.6.3",
+    "prettier": "3.5.3",
+    "style-loader": "4.0.0",
+    "webpack": "5.98.0",
+    "webpack-cli": "6.0.1",
+    "webpack-dev-server": "5.2.0",
+    "webpack-merge": "6.0.1"
+  }
+}
