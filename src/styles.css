@@ -2,11 +2,13 @@
   border: .4px solid black;
 } */
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
-.body-container, section {
+.body-container,
+section {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -22,16 +24,52 @@ section {
   width: 80%;
   flex-flow: row nowrap;
   gap: 5rem;
-  margin: 5rem;
+  margin: 2rem;
+}
+
+.player-section {
+  height: 250px;
+  margin: revert;
+  align-items: flex-end;
+}
+
+.ship-container {
+  display: grid;
+  grid-template: 1fr 1fr / repeat(8, 1fr);
+  width: inherit;
+  min-height: 50%;
+}
+
+.ship-container [class^=ship] {
+  border: .5px solid gold;
+  background: url("/home/jmpi/vscode_repos/tod-battleship/src/assets/battleship.png") repeat-y;
+  background-size: 100% 100%;
+  padding: .5rem;
+}
+
+.ship0 {
+  grid-row: 1 / 1;
+  grid-column: 1 / 5;
+}
+.ship1 {
+  grid-row: 1 / 1;
+  grid-column: 6 / -1;
+}
+.ship2 {
+  grid-row: 2 / 3;
+  grid-column: 1 / 3
+}
+.ship3 {
+  grid-row: 2 / 3;
+  grid-column: 4 / -1;
 }
 
 .board {
-  height: inherit;
+  height: 100%;
   width: inherit;
   display: grid;
   grid-template: repeat(10, 1fr) / repeat(10, 1fr);
 }
 .board > * {
-  border: .5px solid red;
+  border: 0.5px solid red;
 }
-
