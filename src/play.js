@@ -11,10 +11,14 @@ export class GamePlay {
   setup() {
     const fragment = new DocumentFragment();
     const container = document.createElement("div");
-    const section = document.createElement("section");
-    container.classList.add("body-container");
+    const playerSection = document.createElement("section");
+    const boardSection = document.createElement("section");
 
-    container.append(section);
+    container.classList.add("body-container");
+    boardSection.classList.add("board-section");
+    playerSection.classList.add("player-section");
+
+    container.append(playerSection, boardSection);
     fragment.append(container);
     document.body.append(fragment);
   }
@@ -31,22 +35,29 @@ export class GamePlay {
 
     this.currentTurn = this.user;
 
-    const pship1 = new Ship(2);
-    const pShip2 = new Ship(4);
+    const pship1 = new Ship(4);
+    const pShip2 = new Ship(3);
+    const pShip3 = new Ship(2);
+    const pShip4 = new Ship(5);
 
-    const cShip1 = new Ship(3);
-    const cShip2 = new Ship(5);
+    const cShip1 = new Ship(4);
+    const cShip2 = new Ship(3);
+    const cShip3 = new Ship(2);
+    const cShip4 = new Ship(5);
 
-    this.user.board.setShip(pship1, pShip2);
-    this.computer.board.setShip(cShip1, cShip2);
+    this.user.board.setShip(pship1, pShip2, pShip3, pShip4);
+    this.computer.board.setShip(cShip1, cShip2, cShip3, cShip4);
 
+    this.user.displayFleet();
+    this.computer.displayFleet();
+    
     this.turn(0, [-1, 4]);
     this.switchTurn();
     this.turn(1, [1, 1]);
     this.switchTurn();
     this.turn(0, [0, 0]);
     this.switchTurn();
-    this.turn(0, [6, 1]);
+    this.turn(3, [6, 1]);
   }
 
   turn(shipID, coordinates, isVertical = false) {

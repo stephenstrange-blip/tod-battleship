@@ -15,7 +15,7 @@ export class GameBoard {
       this.board.push(column);
     }
 
-    const section = document.querySelector("section");
+    const section = document.querySelector(".board-section");
     const boardDiv = document.createElement("div");
     boardDiv.classList.add("board");
     boardDiv.id = this.id !== undefined ? `t${this.id}` : 33;
@@ -44,7 +44,7 @@ export class GameBoard {
   // test the side effects with mock
   place(ship, coordinates, isVertical = false) {
     let [row, col] = [...coordinates];
-    
+
     for (let i = 0; i < ship.length; i++) {
       if (!isVertical) {
         // update the local array
@@ -55,7 +55,6 @@ export class GameBoard {
         const point = document.querySelector(query);
         point.id = ship.id;
         point.textContent = ship.id;
-        
       } else {
         this.board[row + i][col] = ship.id;
 

@@ -10,4 +10,20 @@ export class Player {
     this.id = identifier;
     this.board.id = identifier;
   }
+
+  displayFleet() {
+    const section = document.querySelector(".player-section");
+    const shipContainer = document.createElement("div");
+    const ships = this.board.ships;
+
+    shipContainer.classList.add("ship-container");
+
+    for (let ship of ships) {
+      const div = document.createElement("div");
+      div.classList.add(`ship${ship.id}`);
+      shipContainer.append(div);
+    }
+
+    section.append(shipContainer);
+  }
 }
