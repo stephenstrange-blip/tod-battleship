@@ -31,6 +31,7 @@ describe("Board placement", () => {
   test("Board must correctly place the ship horizontally", () => {
     const checkH = jest.fn((rindex, cindex) => [rindex, cindex]);
     const ship = new Ship(3);
+    ship.id = 1;
     board.place(ship, [3, 0]);
 
     board.board.forEach((r, rindex) => {
@@ -49,6 +50,7 @@ describe("Board placement", () => {
   test("Board must correctly place the ship vertically", () => {
     const checkV = jest.fn((rindex, cindex) => [rindex, cindex]);
     const ship = new Ship(3);
+    ship.id = 2;
     board.place(ship, [0, 3], true);
 
     board.board.forEach((r, rindex) => {
@@ -69,5 +71,21 @@ describe("Board placement", () => {
     expect(() => board.isMoveValid(ship, [0, 3])).toThrow("Occupied!");
     expect(() => board.isMoveValid(ship, [9, 9])).toThrow("Out of bounds!");
     expect(board.isMoveValid(ship, [5, 4])).toBe(true);
+  });
+});
+
+describe("Ship management", () => {
+  const board = new GameBoard(10, 10);
+  board.construct();
+
+  test("Board must store a live collection of ships with unique IDs", () => {
+    const ship1 = new Ship(3);
+    const ship2 = new Ship(4);
+    board.setShip(ship1, ship2);
+
+    expect(board.ships.length).toEqual(2);
+    expect(board.ships[0].id).toEqual(0);
+    expect(board.ships[1].id).not.toEqual(0);
+    expect(board.ships[2]).toBeFalsy();
   });
 });

@@ -3,6 +3,7 @@ export class GameBoard {
     this.row = row;
     this.col = col;
     this.board = [];
+    this.ships = [];
   }
 
   // incoming command
@@ -20,6 +21,10 @@ export class GameBoard {
     return arr[0] >= 0 && arr[0] < this.row && arr[1] >= 0 && arr[1] < this.col;
   }
 
+  isVacant(value) {
+    return value === -1;
+  }
+
   // incoming command
   // test the side effects with mock
   place(ship, coordinates, isVertical = false) {
@@ -30,8 +35,21 @@ export class GameBoard {
     }
   }
 
-  isVacant(value) {
-    return value === -1;
+  // incoming command
+  // test the side effect
+  setShip(...ships) {
+    const fleet = [...ships];
+
+    // store each ship first before assigning ID
+    // because their position on the board's ship array
+    // may differ from their position from argument
+    fleet.forEach((ship) => {
+      this.ships.push(ship);
+    });
+
+    this.ships.forEach((ship, index) => {
+      ship.id = index;
+    });
   }
 
   isMoveValid(ship, coordinates, isVertical = false) {

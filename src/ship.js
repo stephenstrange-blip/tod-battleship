@@ -3,7 +3,7 @@ export class Ship {
     this.isSunked = false;
     this.length = length;
     this.hits = 0;
-    this.id = Math.round(Math.random() * 10);
+    this.id = null;
   }
 
   // Incoming Command
