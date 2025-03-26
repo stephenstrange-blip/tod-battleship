@@ -1,10 +1,10 @@
 import { GameBoard } from "../gameBoard";
 import { Ship } from "../ship";
 
-describe("Board should be a multidimensional array based on input", () => {
-  const board = new GameBoard(10, 9);
-  board.construct();
+const board = new GameBoard(10, 9);
+board.construct();
 
+describe("Board should be a multidimensional array based on input", () => {
   test("Each row must have the same number of columns", () => {
     const getLength = jest.fn((arr) => arr.length);
     board.board.forEach((row) => {
@@ -25,9 +25,6 @@ describe("Board should be a multidimensional array based on input", () => {
 });
 
 describe("Board placement", () => {
-  const board = new GameBoard(10, 9);
-  board.construct();
-
   test("Board must correctly place the ship horizontally", () => {
     const checkH = jest.fn((rindex, cindex) => [rindex, cindex]);
     const ship = new Ship(3);
@@ -50,7 +47,7 @@ describe("Board placement", () => {
   test("Board must correctly place the ship vertically", () => {
     const checkV = jest.fn((rindex, cindex) => [rindex, cindex]);
     const ship = new Ship(3);
-    ship.id = 2;
+    ship.id = 5;
     board.place(ship, [0, 3], true);
 
     board.board.forEach((r, rindex) => {
@@ -75,9 +72,6 @@ describe("Board placement", () => {
 });
 
 describe("Ship management", () => {
-  const board = new GameBoard(10, 10);
-  board.construct();
-
   test("Board must store a live collection of ships with unique IDs", () => {
     const ship1 = new Ship(3);
     const ship2 = new Ship(4);
@@ -87,5 +81,19 @@ describe("Ship management", () => {
     expect(board.ships[0].id).toEqual(0);
     expect(board.ships[1].id).not.toEqual(0);
     expect(board.ships[2]).toBeFalsy();
+  });
+});
+
+describe("User attack", () => {
+  // prefill with mock ID
+  for (let i = 0; i < 4; i++) {
+    board.board[0][i] = 2;
+  }
+
+  test("receiveAttack() must return the id of ships for a successful attack", () => {
+    expect(board.receiveAttack([0, 0])).toBe(2);
+  });
+  test("receiveAttack() must return a pair of coordinates for missed attacks", () => {
+    expect(board.receiveAttack([5, 5])).toEqual([5, 5]);
   });
 });
