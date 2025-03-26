@@ -69,4 +69,17 @@ export class GameBoard {
     }
     return true;
   }
+
+  // incoming query
+  // test the return value
+  receiveAttack(coordinates) {
+    let [row, col] = [...coordinates];
+    let value = this.board[row][col];
+    if (!this.isVacant(value)) {
+      return value;
+    }
+    // if a miss, return the coordinates
+    // and an outer function will record the miss
+    return coordinates;
+  }
 }
