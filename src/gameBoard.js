@@ -13,6 +13,20 @@ export class GameBoard {
       let column = Array(this.col).fill(-1);
       this.board.push(column);
     }
+
+    const section = document.querySelector("section");
+    const boardDiv = document.createElement("div");
+    boardDiv.classList.add("board");
+
+    for (let r = 0; r < this.row; r++) {
+      for (let c = 0; c < this.col; c++) {
+        const point = document.createElement("p");
+        point.dataset.location = `[${r},${c}]`;
+        boardDiv.append(point);
+      }
+    }
+
+    section.append(boardDiv);
   }
 
   // incoming query
