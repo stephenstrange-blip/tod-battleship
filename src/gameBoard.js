@@ -4,6 +4,7 @@ export class GameBoard {
     this.col = col;
     this.board = [];
     this.ships = [];
+    this.id = null;
   }
 
   // incoming command
@@ -17,15 +18,15 @@ export class GameBoard {
     const section = document.querySelector("section");
     const boardDiv = document.createElement("div");
     boardDiv.classList.add("board");
+    boardDiv.id = this.id !== undefined ? `t${this.id}` : 33;
 
     for (let r = 0; r < this.row; r++) {
       for (let c = 0; c < this.col; c++) {
         const point = document.createElement("p");
-        point.dataset.location = `[${r},${c}]`;
+        point.dataset.loc = `[${r},${c}]`;
         boardDiv.append(point);
       }
     }
-
     section.append(boardDiv);
   }
 
@@ -43,9 +44,26 @@ export class GameBoard {
   // test the side effects with mock
   place(ship, coordinates, isVertical = false) {
     let [row, col] = [...coordinates];
+    
     for (let i = 0; i < ship.length; i++) {
-      if (!isVertical) this.board[row][col + i] = ship.id;
-      else this.board[row + i][col] = ship.id;
+      if (!isVertical) {
+        // update the local array
+        this.board[row][col + i] = ship.id;
+
+        //update the DOM
+        let query = `#t${this.id} [data-loc='[${row},${col + i}]']`;
+        const point = document.querySelector(query);
+        point.id = ship.id;
+        point.textContent = ship.id;
+        
+      } else {
+        this.board[row + i][col] = ship.id;
+
+        let query = `#t${this.id} [data-loc='[${row + i},${col}]']`;
+        const point = document.querySelector(query);
+        point.id = ship.id;
+        point.textContent = ship.id;
+      }
     }
   }
 
@@ -66,7 +84,7 @@ export class GameBoard {
     });
   }
 
-  isMoveValid(ship, coordinates, isVertical = false) {
+  isPlacementValid(ship, coordinates, isVertical = false) {
     let [row, col] = [...coordinates];
     let moveLength = ship.length - 1;
 
@@ -81,7 +99,7 @@ export class GameBoard {
       else if (isVertical && !this.isVacant(this.board[row + i][col]))
         throw new Error("Occupied!");
     }
-    return true;
+    return 2;
   }
 
   // incoming query
