@@ -88,11 +88,11 @@ export class GameBoard {
     let moveLength = ship.length - 1;
 
     // if ship is placed, check if it will not exceed board
-    if (row + moveLength > this.row && col + moveLength > this.col)
+    if (row + moveLength > this.row - 1 || col + moveLength > this.col - 1)
       throw new Error("Out of bounds!");
 
     // or check if it will overwrite another ship already in the board
-    for (let i = 0; i < ship.length; i++) {
+    for (let i = 0; i <= moveLength; i++) {
       if (!isVertical && !this.isVacant(this.board[row][col + i]))
         throw new Error("Occupied!");
       else if (isVertical && !this.isVacant(this.board[row + i][col]))
