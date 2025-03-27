@@ -4,6 +4,9 @@ export class Player {
   constructor() {
     this.id = null;
     this.board = new GameBoard(10, 10);
+    this.name = "player";
+    this.missed = [];
+    this.history = [];
   }
 
   setID(identifier) {
@@ -12,7 +15,7 @@ export class Player {
   }
 
   displayFleet() {
-    const section = document.querySelector(".player-section");
+    const div = document.querySelector(`.${this.name}-info`);
     const shipContainer = document.createElement("div");
     const ships = this.board.ships;
 
@@ -24,6 +27,35 @@ export class Player {
       shipContainer.append(div);
     }
 
-    section.append(shipContainer);
+    div.append(shipContainer);
+  }
+
+  displayInfo() {
+    const section = document.querySelector(".player-section");
+    const playerDiv = document.createElement("div");
+    const infoContainer = document.createElement("p");
+    const name = document.createElement("h1");
+    const fleetStatus = document.createElement("h4");
+
+    playerDiv.classList.add(`${this.name}-info`);
+    fleetStatus.classList.add(`${this.name}-status`);
+
+    name.textContent = this.name.toLocaleUpperCase();
+    fleetStatus.textContent = `${this.board.ships.length} ships left`;
+
+    infoContainer.append(name, fleetStatus);
+    playerDiv.append(infoContainer);
+    section.append(playerDiv);
+  }
+
+  setName(name) {
+    this.name = name;
+  }
+
+  isHitAlready(currentAttack) {
+    this.history.forEach((attack) => {
+      if (attack === currentAttack) return true;
+    });
+    return false;
   }
 }

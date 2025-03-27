@@ -106,11 +106,20 @@ export class GameBoard {
   receiveAttack(coordinates) {
     let [row, col] = [...coordinates];
     let value = this.board[row][col];
+
     if (!this.isVacant(value)) {
-      return value;
+      return { coordinates, id: value };
     }
-    // if a miss, return the coordinates
+    // if a miss, no ID recorded
     // and an outer function will record the miss
-    return coordinates;
+    return { coordinates, id: null };
+  }
+
+  checkRemainingShips() {
+    let remaining = this.ships.reduce((total, ship) => {
+      if (!ship.isSunked) return total + 1;
+      return total;
+    }, 0);
+    return remaining;
   }
 }
